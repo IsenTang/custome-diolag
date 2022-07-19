@@ -1,28 +1,52 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Dialog :width="700" :title="title" :visible.sync='visible'
+      @close='onClose'
+      @open='onOpen'
+    >
+      <template #title>
+        <div>slot title</div>
+      </template>
+
+      <template #default>
+        <div>自定义内容</div>
+      </template>
+    </Dialog>
+    <button @click='openDialog'>test</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Dialog from '@/components/DialogView.vue';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      title: 'dialog title',
+      visible: false,
+    };
+  },
   components: {
-    HelloWorld,
+    Dialog,
+  },
+  methods: {
+    onClose() {
+      console.log('关闭事件');
+    },
+    onOpen() {
+      console.log('打开事件');
+    },
+    openDialog() {
+      this.visible = true;
+    },
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+ *{
+    padding:0;
+    margin:0;
+ }
 </style>
